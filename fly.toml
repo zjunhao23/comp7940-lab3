@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for zjhchatbot-floral-surf-1608 on 2024-03-07T20:45:49+08:00
+# fly.toml app configuration file generated for zjhchatbot-test on 2024-03-08T02:19:17+08:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'zjhchatbot-floral-surf-1608'
+app = 'zjhchatbot-test'
 primary_region = 'hkg'
 
 [build]
@@ -13,24 +13,21 @@ primary_region = 'hkg'
   PORT = '8080'
 
 [[services]]
-  internal_port =8080
-  protocol = "tcp"
- 
+  protocol = 'tcp'
+  internal_port = 8080
+
+[[services.ports]]
+    port = 80
+    handlers = ['http']
+
+[[services.ports]]
+    port = 443
+    handlers = ['tls', 'http']
+
   [services.concurrency]
-	hard_limit = 25
-	soft_limit = 20
-	type = "connections"
-
-
-  [[services.ports]]
-	handlers = ["http"]
-	port = 80
-
-
-  [[services.ports]]
-	handlers = ["tls", "http"]
-	port = 443
-
+    type = 'connections'
+    hard_limit = 25
+    soft_limit = 20
 
 [[vm]]
-size = 'shared-cpu-1x'
+  size = 'shared-cpu-1x'
